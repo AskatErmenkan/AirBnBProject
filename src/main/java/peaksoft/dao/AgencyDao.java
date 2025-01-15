@@ -1,4 +1,4 @@
-package peaksoft.dao.daoImpl;
+package peaksoft.dao;
 
-public class AgencyDao {
+public interface AgencyDao {
 }

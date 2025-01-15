@@ -1,4 +1,4 @@
 package peaksoft.dao;
 
-public class OwnerDao {
+public interface OwnerDao {
 }
