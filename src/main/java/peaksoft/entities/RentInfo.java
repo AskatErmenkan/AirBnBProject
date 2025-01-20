@@ -23,12 +23,16 @@ public class RentInfo {
     private Date checkIn;
 
     @ManyToOne
-    private Agency agency;
+    private Owner owner;
 
     @ManyToOne
-    private Owner owner;
+    private Customer customer;
 
     @OneToOne
     private House house;
 
+    public RentInfo(Date checkOut, Date checkIn) {
+        this.checkOut = checkOut;
+        this.checkIn = checkIn;
+    }
 }

@@ -29,9 +29,17 @@ public class Owner {
     @ManyToMany
     private List<Agency> agencies;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private List<RentInfo> rentInfo;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<House> houses;
+
+    public Owner(String firstName, String lastName, String email, Date dateOfBirth, Gender gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+    }
 }

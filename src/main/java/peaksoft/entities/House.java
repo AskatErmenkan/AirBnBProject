@@ -20,6 +20,7 @@ public class House {
     @GeneratedValue(generator = "house_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "house_gen", sequenceName = "house_seq", allocationSize = 1)
 
+    private Long id;
     private HouseType houseType;
     private BigDecimal price;
     private Double rating;
@@ -27,16 +28,21 @@ public class House {
     private int room;
     private Boolean furniture;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private RentInfo rentInfo;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Owner owner;
 
+    @OneToOne(mappedBy = "house")
+    private RentInfo rentInfo;
 
-
-
+    public House(HouseType houseType, BigDecimal price, Double rating, String description, int room, Boolean furniture) {
+        this.houseType = houseType;
+        this.price = price;
+        this.rating = rating;
+        this.description = description;
+        this.room = room;
+        this.furniture = furniture;
+    }
 }

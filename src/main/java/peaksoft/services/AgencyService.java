@@ -1,15 +1,17 @@
-package peaksoft.dao;
+package peaksoft.services;
 
 import peaksoft.entities.Agency;
 
 import java.util.List;
 import java.util.Map;
 
-public interface AgencyDao {
+public interface AgencyService {
     void saveAgency(Agency agency);
     Agency getAgencyById(Long id);
     List<Agency> getAllAgencies();
-    void deleteAgencyById(Long id);
-    void updateAgency(Agency agency, Long id);
+    void deleteAgency(Long id);
+    void updateAgency(Agency agency);
     public Map<String, List<Agency>> getAgenciesGroupedByRegion();
+
+
 }

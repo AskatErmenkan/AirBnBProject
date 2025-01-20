@@ -5,7 +5,8 @@ import lombok.*;
 import peaksoft.enums.FamilyStatus;
 import peaksoft.enums.Gender;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -15,6 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 
+
 public class Customer{
     @Id
     @GeneratedValue(generator = "customer_gen", strategy = GenerationType.SEQUENCE)
@@ -23,10 +25,22 @@ public class Customer{
     private String firstName;
     private String lastName;
     private String email;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String nationality;
+    @Enumerated(EnumType.STRING)
     private FamilyStatus familyStatus;
 
+    @OneToMany(mappedBy = "customer")
+    private List<RentInfo> rentInfo;
 
+    public Customer(String firstName, String lastName, String email, LocalDate dateOfBirth, Gender gender, String nationality) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.nationality = nationality;
+    }
 }

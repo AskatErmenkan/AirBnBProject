@@ -10,20 +10,31 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-
 public class Address {
     @Id
     @GeneratedValue(generator = "address_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "address_gen", sequenceName = "address_seq", allocationSize = 1)
     private Long id;
-    private String name;
-    private String phoneNumber;
-
+    private String city;
+    private String region;
+    @Column(unique = true)
+    private String street;
     @OneToOne
     private Agency agency;
 
-    @OneToOne
-    private House house;
+    public Address(String city, String region, String street) {
+        this.city = city;
+        this.region = region;
+        this.street = street;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Address{" +
+                "street='" + street + '\'' +
+                ", id=" + id +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                '}';
+    }
 }

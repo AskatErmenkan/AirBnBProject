@@ -21,15 +21,29 @@ public class Agency {
     private String name;
     private String phoneNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @OneToOne(mappedBy = "agency", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Address address;
 
-    @ManyToMany
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "agencies")
     private List<Owner> owner;
 
-    @OneToMany
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<RentInfo> rentInfo;
 
+    public Agency(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Agency{" +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }
