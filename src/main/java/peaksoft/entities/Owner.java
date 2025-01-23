@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import peaksoft.enums.Gender;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,7 +23,7 @@ public class Owner {
     private String firstName;
     private String lastName;
     private String email;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private Gender gender;
 
     @ManyToMany
@@ -35,7 +35,7 @@ public class Owner {
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<House> houses;
 
-    public Owner(String firstName, String lastName, String email, Date dateOfBirth, Gender gender) {
+    public Owner(String firstName, String lastName, String email, LocalDate dateOfBirth, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

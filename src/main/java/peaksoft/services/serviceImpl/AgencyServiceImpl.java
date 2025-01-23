@@ -35,10 +35,4 @@ public class AgencyServiceImpl implements AgencyService {
     public void updateAgency(Agency agency) {
 
     }
-
-    @Override
-    public Map<String, List<Agency>> getAgenciesGroupedByRegion() {
-        return agencyDao.getAgenciesGroupedByRegion();
-
-    }
 }

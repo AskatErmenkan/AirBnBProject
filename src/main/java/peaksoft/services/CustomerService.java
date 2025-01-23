@@ -5,8 +5,20 @@ import peaksoft.enums.FamilyStatus;
 import peaksoft.enums.Gender;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface CustomerService {
-    public void saveCustomer(String firstName, String lastName, String email, LocalDate dateOfBirth,
-                             Gender gender, String nationality, FamilyStatus familyStatus);
+
+    void saveCustomer(Customer customer);
+
+    Customer saveCustomerWithRentInfo(Customer customer, Long houseId, Long agencyId, LocalDate checkIn, LocalDate checkOut);
+
+    Customer getCustomerById(Long id);
+
+    List<Customer> getAllCustomers();
+
+    void updateCustomer(Long id, Customer customer);
+
+    void deleteCustomer(Long id);
+
 }

@@ -12,6 +12,7 @@ public interface AddressDao {
     List<Address> getAllAddress();
     String updateAddress(Address address, Long id);
     void getAllAddressesWithAgencies();
+    Map<String, List<Agency>> getAgenciesGroupedByRegion();
 
 
 }

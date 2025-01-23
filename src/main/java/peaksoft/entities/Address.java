@@ -19,7 +19,8 @@ public class Address {
     private String region;
     @Column(unique = true)
     private String street;
-    @OneToOne
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private Agency agency;
 
     public Address(String city, String region, String street) {

@@ -3,6 +3,7 @@ package peaksoft.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,17 +22,16 @@ public class Agency {
     private String name;
     private String phoneNumber;
 
-
-    @OneToOne(mappedBy = "agency", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(mappedBy = "agency", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Address address;
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "agencies")
-    private List<Owner> owner;
+    private List<Owner> owner = new ArrayList<>();
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.REMOVE)
-    private List<RentInfo> rentInfo;
+    private List<RentInfo> rentInfos = new ArrayList<RentInfo>();
 
     public Agency(String name, String phoneNumber) {
         this.name = name;

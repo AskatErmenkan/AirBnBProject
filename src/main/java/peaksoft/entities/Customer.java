@@ -6,18 +6,18 @@ import peaksoft.enums.FamilyStatus;
 import peaksoft.enums.Gender;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table(name ="customers")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 
-
-public class Customer{
+public class Customer {
     @Id
     @GeneratedValue(generator = "customer_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "customer_gen", sequenceName = "customer_seq", allocationSize = 1)
@@ -32,15 +32,17 @@ public class Customer{
     @Enumerated(EnumType.STRING)
     private FamilyStatus familyStatus;
 
-    @OneToMany(mappedBy = "customer")
-    private List<RentInfo> rentInfo;
+    @OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<RentInfo> rentInfo = new ArrayList<>();
 
-    public Customer(String firstName, String lastName, String email, LocalDate dateOfBirth, Gender gender, String nationality) {
+
+    public Customer(String firstName, String lastName, String email, LocalDate dateOfBirth, Gender gender, String nationality, FamilyStatus familyStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.nationality = nationality;
+        this.familyStatus = familyStatus;
     }
 }

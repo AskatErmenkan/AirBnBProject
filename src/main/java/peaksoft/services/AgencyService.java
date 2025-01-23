@@ -11,7 +11,6 @@ public interface AgencyService {
     List<Agency> getAllAgencies();
     void deleteAgency(Long id);
     void updateAgency(Agency agency);
-    public Map<String, List<Agency>> getAgenciesGroupedByRegion();
 
 
 }

@@ -1,11 +1,11 @@
-package peaksoft.services;
+package peaksoft.dao;
 
 import peaksoft.entities.RentInfo;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface RentInfoService {
+public interface RentInfoDao {
     void saveRentInfo(RentInfo rentInfo);
 
     RentInfo getRentInfoById(Long id);

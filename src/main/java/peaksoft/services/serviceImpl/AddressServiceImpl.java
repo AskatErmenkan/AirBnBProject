@@ -35,5 +35,10 @@ public class AddressServiceImpl implements AddressService {
     public void getAllAddressesWithAgencies() {
         addressDao.getAllAddressesWithAgencies();
     }
+    @Override
+    public Map<String, List<Agency>> getAgenciesGroupedByRegion() {
+        return addressDao.getAgenciesGroupedByRegion();
+
+    }
 
 }

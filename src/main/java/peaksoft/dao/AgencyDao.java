@@ -11,5 +11,4 @@ public interface AgencyDao {
     List<Agency> getAllAgencies();
     void deleteAgencyById(Long id);
     void updateAgency(Agency agency, Long id);
-    public Map<String, List<Agency>> getAgenciesGroupedByRegion();
 }

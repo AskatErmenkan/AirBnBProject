@@ -21,6 +21,7 @@ public class House {
     @SequenceGenerator(name = "house_gen", sequenceName = "house_seq", allocationSize = 1)
 
     private Long id;
+    @Enumerated(EnumType.STRING)
     private HouseType houseType;
     private BigDecimal price;
     private Double rating;
@@ -34,7 +35,7 @@ public class House {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Owner owner;
 
-    @OneToOne(mappedBy = "house")
+    @ManyToOne
     private RentInfo rentInfo;
 
     public House(HouseType houseType, BigDecimal price, Double rating, String description, int room, Boolean furniture) {

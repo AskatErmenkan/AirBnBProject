@@ -8,6 +8,7 @@ import peaksoft.dao.AddressDao;
 import peaksoft.entities.Address;
 import peaksoft.entities.Agency;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,27 +34,22 @@ public class AddressDaoImpl implements AddressDao {
     @Override
     public int getAgencyCountByCity(String city) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            Address address = entityManager
-                    .createQuery("from Address where city = :city", Address.class)
+            // Транзакцияны баштоо
+            entityManager.getTransaction().begin();
+
+            // Шаардын аты боюнча агенттиктердин санын алуу
+            Long count = entityManager.createQuery(
+                            "select count(a) from Agency a join a.address ad where ad.city = :city", Long.class)
                     .setParameter("city", city)
                     .getSingleResult();
-
-            List<Agency> agencies = entityManager
-                    .createQuery("select a from Agency a", Agency.class)
-                    .getResultList();
-
-            int counter = 0;
-            for (Agency agency : agencies) {
-                if (agency.getAddress().equals(address)) {
-                    counter++;
-                }
-            }
-            return counter;
+            entityManager.getTransaction().commit();
+            return count.intValue();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return 0;
         }
     }
+
 
     @Override
     public List<Address> getAllAddress() {
@@ -100,5 +96,29 @@ public class AddressDaoImpl implements AddressDao {
             }
             entityManager.getTransaction().commit();
         }
+    }
+    @Override
+    public Map<String, List<Agency>> getAgenciesGroupedByRegion() {
+        Map<String, List<Agency>> groupByRegion = new HashMap<>();
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createQuery("from Address", Address.class);
+            List<Address> addresses = query.getResultList();
+            for (Address address : addresses) {
+                String region = address.getRegion();
+                if (region != null) {
+                    List<Agency> agencies = groupByRegion.getOrDefault(region, new ArrayList<>());
+                    Agency agency = address.getAgency();
+                    if (agency != null) {
+                        agencies.add(agency);
+                    }
+                    groupByRegion.put(region, agencies);
+                }
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return groupByRegion;
     }
 }

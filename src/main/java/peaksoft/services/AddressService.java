@@ -12,5 +12,6 @@ public interface AddressService {
     List<Address> getAllAddress();
     void updateAddress(Long id,Address address);
     void getAllAddressesWithAgencies();
+    public Map<String, List<Agency>> getAgenciesGroupedByRegion();
 
 }

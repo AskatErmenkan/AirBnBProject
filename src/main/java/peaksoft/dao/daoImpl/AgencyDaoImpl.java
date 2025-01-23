@@ -84,30 +84,5 @@ public class AgencyDaoImpl implements AgencyDao {
             System.out.println(e.getMessage());
         }
     }
-
-    @Override
-    public Map<String, List<Agency>> getAgenciesGroupedByRegion() {
-        Map<String, List<Agency>> groupByRegion = new HashMap<>();
-        try (EntityManager entityManager = emf.createEntityManager()) {
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createQuery("from Address", Address.class);
-            List<Address> addresses = query.getResultList();
-            for (Address address : addresses) {
-                String region = address.getRegion();
-                if (region != null) {
-                    List<Agency> agencies = groupByRegion.getOrDefault(region, new ArrayList<>());
-                    Agency agency = address.getAgency();
-                    if (agency != null) {
-                        agencies.add(agency);
-                    }
-                    groupByRegion.put(region, agencies);
-                }
-            }
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return groupByRegion;
-    }
 }
 

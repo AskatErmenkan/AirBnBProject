@@ -3,8 +3,8 @@ package peaksoft.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "rent_infos")
@@ -19,8 +19,8 @@ public class RentInfo {
     @GeneratedValue(generator = "rent_info_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "rent_info_gen", sequenceName = "rent_info_seq", allocationSize = 1)
     private Long id;
-    private Date checkOut;
-    private Date checkIn;
+    private LocalDate checkOut;
+    private LocalDate checkIn;
 
     @ManyToOne
     private Owner owner;
@@ -31,7 +31,7 @@ public class RentInfo {
     @OneToOne
     private House house;
 
-    public RentInfo(Date checkOut, Date checkIn) {
+    public RentInfo(LocalDate checkOut, LocalDate checkIn) {
         this.checkOut = checkOut;
         this.checkIn = checkIn;
     }
